@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const LinkedInCloneApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-  
+class LinkedInCloneApp extends StatelessWidget {
+  const LinkedInCloneApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Material (
-        child:Container(
-          child: Center( 
-            child: Text('Hello, welcome to 3 months of Flutter!'),
-          ),
-
-        ),
+      debugShowCheckedModeBanner: false,
+      title: 'LinkedIn Clone',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
       ),
+      home: const SplashScreen (),
     );
   }
 }
