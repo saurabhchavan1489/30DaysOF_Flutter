@@ -14,17 +14,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'TITAN App',
+      title: "TITAN App",
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
         fontFamily: GoogleFonts.lato().fontFamily,
-        primaryTextTheme: GoogleFonts.latoTextTheme()
-      
+        textTheme: GoogleFonts.latoTextTheme(),
       ),
-      initialRoute: "/login",
+      initialRoute: '/login',
       routes: {
-        "/login": (context) => const LoginPage(),
-        "/home": (context) => const HomePage(),
+        '/login': (context) => const LoginPage(),
+        '/home': (context) => const HomePage(),
       },
     );
   }
