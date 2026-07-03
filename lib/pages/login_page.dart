@@ -5,108 +5,152 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() {
-    return _LoginPageState();
-  }
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+
   String name = "";
-  bool changeButton = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 245, 243, 1),
-      appBar: AppBar(
-        title: const Text("Login"),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Image.asset(
-                "assets/images/login_image.png",
-                filterQuality: FilterQuality.high,
-              ),
+      body: Stack(
+        children: [
+          // Background Image
+          SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: Image.asset(
+              "assets/images/logo.png", // Change image name if needed
+              fit: BoxFit.cover,
+            ),
+          ),
 
-              const SizedBox(height: 20),
+          // Dark Overlay
+          Container(color: Colors.black.withOpacity(0.45)),
 
-              Text(
-                "Welcome TITAN $name",
-                style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+          // Login Form
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 60),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 60),
 
-              const SizedBox(height: 30),
+                    const Icon(
+                      Icons.account_circle,
+                      size: 110,
+                      color: Colors.white,
+                    ),
 
-              TextField(
-                decoration: const InputDecoration(
-                  hintText: "Enter Username",
-                  labelText: "Username",
-                  border: OutlineInputBorder(),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    name = value;
-                  });
-                },
-              ),
+                    const SizedBox(height: 20),
 
-              const SizedBox(height: 20),
-
-              TextField(
-                obscureText: true,
-                decoration: const InputDecoration(
-                  hintText: "Enter Password",
-                  labelText: "Password",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-
-              const SizedBox(height: 30),
-
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    setState(() {
-                      changeButton = true;
-                      Alignment .center;
-                    });
-
-                    await Future.delayed(const Duration(seconds: 1));
-                  
-                
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomePage(),
+                    Text(
+                      "TITAN $name",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
                       ),
-                    );
+                    ),
 
-                    setState(() {
-                      changeButton = false;
-                    });
-                  },
-                  child: changeButton
-                    
-                  
-                      ? const Icon(Icons.done)
-                      : const Text(
-                          "Login",
+                    const SizedBox(height: 40),
+
+                    TextFormField(
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white.withOpacity(.15),
+                        labelText: "Username",
+                        labelStyle: const TextStyle(color: Colors.white),
+                        hintText: "Enter Username",
+                        hintStyle: const TextStyle(color: Colors.white70),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          name = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return "Username cannot be empty";
+                        }
+                        return null;
+                      },
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    TextFormField(
+                      obscureText: true,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white.withOpacity(.15),
+                        labelText: "Password",
+                        labelStyle: const TextStyle(color: Colors.white),
+                        hintText: "Enter Password",
+                        hintStyle: const TextStyle(color: Colors.white70),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Password cannot be empty";
+                        } else if (value.length < 6) {
+                          return "Password must be at least 6 characters";
+                        }
+
+                        return null;
+                      },
+                    ),
+
+                    const SizedBox(height: 35),
+
+                    SizedBox(
+                      width: double.infinity,
+                      height: 55,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Login Successful")),
+                            );
+
+                             Navigator.push(
+                               context,
+                               MaterialPageRoute(
+                                 builder: (_) => HomePage(),
+                               ),
+                             );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Please fix all errors"),
+                              ),
+                            );
+                          }
+                        },
+                        child: const Text(
+                          "LOGIN",
                           style: TextStyle(fontSize: 18),
                         ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
