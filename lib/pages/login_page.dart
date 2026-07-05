@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
 
           // Dark Overlay
-          Container(color: Colors.black.withOpacity(0.45)),
+          Container(color: Colors.black.withValues(alpha: 0.45)),
 
           // Login Form
           SingleChildScrollView(
@@ -54,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 34,
+                        
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -64,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.white.withOpacity(.15),
+                        fillColor: Colors.white.withValues(alpha: .15),
                         labelText: "Username",
                         labelStyle: const TextStyle(color: Colors.white),
                         hintText: "Enter Username",
@@ -93,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.white.withOpacity(.15),
+                        fillColor: Colors.white.withValues(alpha: .15),
                         labelText: "Password",
                         labelStyle: const TextStyle(color: Colors.white),
                         hintText: "Enter Password",
