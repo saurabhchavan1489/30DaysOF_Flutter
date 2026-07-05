@@ -20,7 +20,7 @@ class MyDrawer extends StatelessWidget {
               padding: EdgeInsets.zero,
               child: UserAccountsDrawerHeader(
                 margin: EdgeInsets.zero,
-                decoration: BoxDecoration(color: Colors.red),
+                decoration: BoxDecoration(color: Colors.deepPurpleAccent),
                 accountName: Text("Saurabh Chavan"),
                 accountEmail: Text("saurabhchavan1489@gmail.com"),
                 currentAccountPicture: CircleAvatar(
