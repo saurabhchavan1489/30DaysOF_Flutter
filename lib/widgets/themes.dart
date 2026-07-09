@@ -7,7 +7,8 @@ class MyTheme {
         brightness: Brightness.light,
         primaryColor: const Color.fromARGB(255, 39, 39, 205),
         scaffoldBackgroundColor: Colors.white,
-        fontFamily: GoogleFonts.lato().fontFamily,
+        fontFamily: GoogleFonts.lato
+        ().fontFamily,
 
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
