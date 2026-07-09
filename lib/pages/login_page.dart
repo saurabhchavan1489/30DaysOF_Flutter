@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
             height: double.infinity,
             width: double.infinity,
             child: Image.asset(
-              "assets/images/logo.png", // Change image name if needed
+              "assets/images/logo.png", // Ch ange image name if needed
               fit: BoxFit.cover,
             ),
           ),
