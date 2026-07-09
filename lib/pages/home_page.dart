@@ -34,25 +34,43 @@ class HomePage extends StatelessWidget {
                     child: GridTile(
                       header: Container(
                         padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.deepPurple,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
                         ),
                         child: Text(
                           item.name,
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        alignment: Alignment.center,
-                        child: Text(item.desc ?? ''),
+                      child: Image.network(
+                        item.image,
+                        fit: BoxFit.cover,
+                      ),
+                      footer: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Center(
+                          child: Text(
+                            '\$${item.price}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   );
                 },
               )
-            : const Center(child: Text('No items found')),
+            : const Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
+      drawer: MyDrawer(),
    );
     
   }
