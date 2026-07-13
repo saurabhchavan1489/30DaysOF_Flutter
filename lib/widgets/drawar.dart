@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_catalog/pages/Helpline_page.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -51,19 +52,25 @@ class MyDrawer extends StatelessWidget {
                 
               ),
                 ),
-                 ListTile(
-              leading: Icon(
-                CupertinoIcons.mail,
+                
+            ListTile(
+              leading: const Icon(
+                Icons.support_agent,
                 color: Colors.white,
               ),
-              title: Text(
-                "Email me",
-                textScaleFactor: 1.2,
+              title: const Text(
+                "Helpline",
                 style: TextStyle(color: Colors.white),
-
               ),
-
-             ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HelplinePage(),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_catalog/pages/home_page.dart';
+
+import 'package:flutter_catalog/pages/home.widgets/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,64 +13,76 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   String name = "";
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image
+          /// Background Image
           SizedBox(
-            height: double.infinity,
             width: double.infinity,
-            child: Image.asset(
-              "assets/images/logo.png", // Ch ange image name if needed
-              fit: BoxFit.cover,
-            ),
+            height: double.infinity,
+            child: Image.asset("assets/images/logo.png", fit: BoxFit.cover),
           ),
 
-          // Dark Overlay
-          Container(color: Colors.black.withValues(alpha: 0.45)),
+          /// Overlay
+          Container(color: Colors.black.withValues(alpha: 0.5)),
 
-          // Login Form
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 60),
+          /// Login Form
+          SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
               child: Form(
                 key: _formKey,
                 child: Column(
                   children: [
-                    const SizedBox(height: 60),
+                    const SizedBox(height: 40),
 
-                    const Icon(
-                      Icons.account_circle,
-                      size: 110,
-                      color: Colors.white,
+                    const CircleAvatar(
+                      radius: 60,
+                      backgroundColor: Colors.white24,
+                      child: Icon(Icons.person, size: 70, color: Colors.white),
                     ),
 
                     const SizedBox(height: 20),
 
-                    Text(
-                      "TITAN $name",
-                      style: const TextStyle(
+                    const Text(
+                      "TITAN WATCH",
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 34,
-                        
                         fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    Text(
+                      "Welcome $name",
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 18,
                       ),
                     ),
 
                     const SizedBox(height: 40),
 
+                    /// Username
                     TextFormField(
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white.withValues(alpha: .15),
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: Colors.white,
+                        ),
                         labelText: "Username",
                         labelStyle: const TextStyle(color: Colors.white),
                         hintText: "Enter Username",
                         hintStyle: const TextStyle(color: Colors.white70),
+                        filled: true,
+                        fillColor: Colors.white.withValues(alpha: .15),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
@@ -89,16 +102,31 @@ class _LoginPageState extends State<LoginPage> {
 
                     const SizedBox(height: 20),
 
+                    /// Password
                     TextFormField(
-                      obscureText: true,
+                      obscureText: _obscurePassword,
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white.withValues(alpha: .15),
+                        prefixIcon: const Icon(Icons.lock, color: Colors.white),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscurePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                        ),
                         labelText: "Password",
                         labelStyle: const TextStyle(color: Colors.white),
                         hintText: "Enter Password",
                         hintStyle: const TextStyle(color: Colors.white70),
+                        filled: true,
+                        fillColor: Colors.white.withValues(alpha: .15),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
@@ -106,10 +134,10 @@ class _LoginPageState extends State<LoginPage> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Password cannot be empty";
-                        } else if (value.length < 6) {
+                        }
+                        if (value.length < 6) {
                           return "Password must be at least 6 characters";
                         }
-
                         return null;
                       },
                     ),
@@ -120,31 +148,48 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       height: 55,
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.deepPurple,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Login Successful")),
-                            );
-
-                             Navigator.push(
-                               context,
-                               MaterialPageRoute(
-                                 builder: (_) => HomePage(),
-                               ),
-                             );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Please fix all errors"),
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
                               ),
                             );
                           }
                         },
                         child: const Text(
                           "LOGIN",
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Forgot Password?",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+
+                    const SizedBox(height: 15),
+
+                    const Text(
+                      "© SC'S   2026 TITAN WATCH COLLECTION",
+                      style: TextStyle(color: Colors.white54),
                     ),
                   ],
                 ),
